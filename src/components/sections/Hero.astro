@@ -5,26 +5,10 @@ const { media } = hero;
 ---
 
 <section id="hero" class="hero relative w-full h-screen overflow-hidden bg-char text-warm">
-  {/* The background is a real photo/video slot — never a canvas, SVG or
-      generated pattern (site/home-page). Until the assets land this renders
-      a labelled placeholder. */}
+  {/* A shader (scripts/smoke.js) over the poster: the poster is what shows without WebGL or under reduced motion. */}
   <div class="absolute inset-0" aria-hidden="true">
-    {media.video ? (
-      <video
-        class="w-full h-full object-cover"
-        poster={media.poster}
-        muted
-        playsinline
-        loop
-        preload="none"
-        data-hero-video
-        data-src={media.video}
-      ></video>
-    ) : media.poster ? (
-      <img class="w-full h-full object-cover" src={media.poster} alt="" fetchpriority="high" decoding="sync" />
-    ) : (
-      <div class="ph-0 w-full h-full"></div>
-    )}
+    <img class="w-full h-full object-cover" src={media.poster} alt="" fetchpriority="high" decoding="sync" />
+    <canvas class="smoke" data-smoke></canvas>
   </div>
 
   <div class="hero__copy">
@@ -34,10 +18,4 @@ const { media } = hero;
     </div>
   </div>
 
-  {!media.video && !media.poster && (
-    <p class="absolute z-[4] left-[30px] bottom-7 max-w-[24ch] font-ui text-[9px] font-semibold
-              tracking-[.2em] uppercase leading-[1.9] text-warm/40 hidden md:block">
-      <b class="block text-warm/25 font-semibold">video placeholder</b>{media.slug}
-    </p>
-  )}
 </section>

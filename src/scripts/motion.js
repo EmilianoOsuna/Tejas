@@ -23,16 +23,6 @@ const clamp = (v, m) => Math.max(-m, Math.min(m, v));
 if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 addEventListener('pageshow', () => { if (!location.hash) scrollTo(0, 0); });
 
-// The hero video is the one asset heavy enough to gate on viewport width, and
-// a looping background video is motion, so reduced motion keeps the poster.
-(function heroVideo() {
-  const v = document.querySelector('[data-hero-video]');
-  if (!v || !v.dataset.src || reduced) return;
-  if (!matchMedia('(min-width: 768px)').matches) return;
-  v.src = v.dataset.src;
-  v.play?.().catch(() => { /* poster stays; nothing to do */ });
-})();
-
 if (!reduced) {
   gsap.registerPlugin(ScrollTrigger, SplitText);
   ScrollTrigger.config({ ignoreMobileResize: true });
@@ -55,6 +45,30 @@ if (!reduced) {
       el.focus({ preventScroll: true });
     });
   });
+
+  /* ---- two fires, one roof: pinned, one step per beat ------------------- */
+  const craft = document.querySelector('[data-craft]');
+  if (craft) {
+    craft.classList.add('is-pinned');
+    const steps = [...craft.querySelectorAll('[data-step]')];
+    const bar = craft.querySelector('[data-craft-bar]');
+    const n = steps.length;
+    gsap.set(steps.slice(1), { autoAlpha: 0 });
+    const tl = gsap.timeline({
+      defaults: { ease: 'none' },
+      scrollTrigger: { trigger: craft.querySelector('.craft__stage'), start: 'top top', end: () => `+=${n * 75}%`, pin: true, scrub: 0.6, anticipatePin: 1, invalidateOnRefresh: true },
+    });
+    tl.fromTo(bar, { scaleX: 1 / n }, { scaleX: 1, duration: n - 1 }, 0);
+    steps.forEach((st, i) => {
+      if (!i) return;
+      const prev = steps[i - 1];
+      tl.to(prev, { autoAlpha: 0, y: -30, duration: 0.3 }, i - 0.15)
+        .fromTo(st, { autoAlpha: 0, y: 40 }, { autoAlpha: 1, y: 0, duration: 0.3 }, i + 0.05)
+        .fromTo(st.querySelector('[data-side=smoke]'), { x: -60 }, { x: 0, duration: 0.4 }, i)
+        .fromTo(st.querySelector('[data-side=cacao]'), { x: 60 }, { x: 0, duration: 0.4 }, i);
+    });
+    tl.to({}, { duration: 0.5 });
+  }
 
   /* ---- the statement: every letter arrives as the line scrolls through --- */
   const statement = document.querySelector('[data-statement]');

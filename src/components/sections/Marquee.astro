@@ -1,0 +1,14 @@
+---
+import { marquee } from '../../content/site.js';
+const run = [...marquee, ...marquee];
+---
+
+<div class="marq" aria-hidden="true">
+  <div class="marq__track">
+    {[0, 1].map(() => (
+      <ul class="marq__set">
+        {run.map((w) => <li>{w}<i></i></li>)}
+      </ul>
+    ))}
+  </div>
+</div>

@@ -40,15 +40,13 @@ const schema = {
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="theme-color" content="#B11A0A" />
+  <meta name="theme-color" content="#2B140C" />
 
-  {/* Bodoni Moda without the opsz axis resolves to its text cut — sturdier
-      hairlines than the display cut, which is what the headlines are set in. */}
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
     rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&family=Montserrat:wght@400;500;600&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,300..700,0..100,0..1&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap"
   />
 
   {/* The intro lives entirely in CSS under `html.intro-on`. This inline script
@@ -82,10 +80,19 @@ const schema = {
 
   <slot />
 
+  <canvas class="embers" aria-hidden="true" data-embers></canvas>
+  <aside class="pit" aria-hidden="true" data-pit>
+    <div class="pit__row"><span>hr</span><b data-pit-hr>00</b><span>/ 12</span><span class="pit__sep"></span><span>internal</span><b data-pit-temp>38°F</b></div>
+    <div class="pit__bar"><i data-pit-bar></i></div>
+    <div class="pit__note" data-pit-note>the fire is lit</div>
+  </aside>
+
   <script>
     import '../scripts/ui.js';
     import '../scripts/slider.js';
     import '../scripts/motion.js';
+    import '../scripts/smoke.js';
+    import '../scripts/pit.js';
   </script>
 </body>
 </html>

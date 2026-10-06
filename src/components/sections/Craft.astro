@@ -1,0 +1,40 @@
+---
+/**
+ * Two fires, one roof. Pinned and scrubbed by motion.js: the pit on the left
+ * and the chocolate room on the right advance one step at a time. Authored as
+ * a plain stack, so with no JS or reduced motion it is just five rows to read.
+ */
+import { craft } from '../../content/site.js';
+import Plate from '../Plate.astro';
+
+const pad = (n) => String(n + 1).padStart(2, '0');
+---
+
+<section id="craft" class="craft" data-craft aria-labelledby="craft-h">
+  <div class="craft__stage">
+    <header class="craft__head">
+      <p class="label label-dark">{craft.label}</p>
+      <h2 id="craft-h" class="headline">{craft.headline}</h2>
+    </header>
+
+    <div class="craft__rail">
+      {craft.steps.map((s, i) => (
+        <article class="craft__step" data-step>
+          <span class="craft__n" aria-hidden="true">{pad(i)}</span>
+          {['smoke', 'cacao'].map((k) => (
+            <div class={`craft__side craft__side--${k}`} data-side={k}>
+              <Plate mask="none" class="ticket" src={`/media/${s[k].photo}`} alt={s[k].alt} slug={s[k].alt} sizes="(min-width: 768px) 28vw, 40vw" />
+              <div>
+                <p class="craft__k">{k}</p>
+                <h3>{s[k].title}</h3>
+                <p class="craft__t">{s[k].text}</p>
+              </div>
+            </div>
+          ))}
+        </article>
+      ))}
+    </div>
+
+    <div class="craft__prog" aria-hidden="true"><i data-craft-bar></i></div>
+  </div>
+</section>

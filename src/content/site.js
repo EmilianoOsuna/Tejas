@@ -81,7 +81,6 @@ export const hero = {
   media: {
     // Replace with the delivered assets (tasks 7.3–7.5). Until then the hero
     // renders a labelled placeholder rather than a broken <video>.
-    video: '/media/hero.mp4',
     poster: '/media/hero-poster.jpg',
     slug: 'The pit at first light · 12s silent loop · 1920×1080 · poster below 768px',
   },
@@ -103,7 +102,7 @@ export const eatSip = [
     id: 'smoke',
     word: 'smoke',
     key: 'menu',
-    tint: '#e6dacd',
+    tint: '#e6cfa9',
     base: { slug: 'Brisket bark sliced, steam visible · 12s silent loop', src: '/media/eat-smoke-poster', clip: '/media/eat-smoke.mp4', alt: '', strength: -5, scale: 1.5, max: 120 },
     floats: [],
   },
@@ -111,7 +110,7 @@ export const eatSip = [
     id: 'cacao',
     word: 'cacao',
     key: 'shop',
-    tint: '#ecd5c5',
+    tint: '#dfb89b',
     base: { slug: 'Cacao nibs on the winnower, overhead, raking light', src: '/media/e-cacao', alt: '', strength: -1, scale: 1.4, max: 100 },
     floats: [
       // { src: '/media/cacao-pod.png', alt: '', strength: -7, scale: 1, className: 'eat-float--tr' },
@@ -135,3 +134,27 @@ export const footerDecor = null; // { src: '/media/post-oak.png', alt: '' }
 
 /** Cut-out spilling in from the left where the statement meets the plate rail. */
 export const bowlDecor = null; // { src: '/media/rub-dust.png', alt: '' }
+
+/** The ticker between the hero and the statement. */
+export const marquee = ['post oak', '225°f', 'twelve hours', '70% cacao', 'bean to bar', 'tomball, texas'];
+
+/**
+ * "Two fires, one roof": the pinned section where the pit and the chocolate
+ * room advance in step. DRAFT COPY — placeholder facts until the shop confirms them.
+ */
+export const craft = {
+  label: 'two fires, one roof',
+  headline: 'smoke on one side, cacao on the other.',
+  steps: [
+    { smoke: { title: 'split & stack', text: 'Post oak, split by hand and stacked to season.', photo: 'g-oak', alt: 'Stacked firewood' },
+      cacao: { title: 'source', text: 'Single-origin beans, sorted by hand.', photo: 'g-cacao', alt: 'Cacao tree leaves' } },
+    { smoke: { title: 'rub & rest', text: 'Salt, pepper and time. Nothing else touches the meat.', photo: 'dish-belly', alt: 'Glazed pork belly' },
+      cacao: { title: 'roast', text: 'Small batches, roasted until the shop smells like dessert.', photo: 'e-cacao', alt: 'Cacao nibs in a bowl' } },
+    { smoke: { title: 'low & slow', text: '225°F and a lot of patience.', photo: 'g-embers', alt: 'Glowing embers' },
+      cacao: { title: 'conch', text: 'Hours of grinding until it turns to silk.', photo: 'g-temper', alt: 'Chocolate in a tempering wheel' } },
+    { smoke: { title: 'wrap & rest', text: 'Butcher paper, then an hour of doing nothing.', photo: 'g-paper', alt: 'Meat on butcher paper' },
+      cacao: { title: 'temper', text: 'Heat, cool, heat again — for the snap.', photo: 'g-chocbars', alt: 'A dark chocolate bar' } },
+    { smoke: { title: 'slice to order', text: 'Cut when you order, never before.', photo: 'dish-sandwich', alt: 'Smoked meat on a bun' },
+      cacao: { title: 'wrap by hand', text: 'Every bar wrapped in-house, one at a time.', photo: 'g-case', alt: 'Chocolates in a display case' } },
+  ],
+};

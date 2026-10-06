@@ -8,21 +8,25 @@ export default {
   theme: {
     extend: {
       colors: {
-        paper: '#FAF8F5',    // ground, HSL L 97% — spec requires >= 96%
-        'paper-2': '#F1ECE5',
-        ink: '#151110',      // 17.69:1 on paper
-        warm: '#FBF8F4',
-        red: '#B11A0A',      // 6.56:1 on paper — AA for normal text
-        'red-d': '#8E1409',
-        'red-l': '#D9583C',  // 4.7:1 on char — the red that works on a dark ground
-        oxblood: '#3A0D08',
-        char: '#171110',
-        smoke: '#6E6157',    // 5.64:1 on paper — AA
-        'smoke-d': '#C3B4A8',
+        paper: '#F4EADB',    // kraft-cream ground — butcher paper, not white
+        'paper-2': '#EADCC8',
+        ink: '#1B100B',
+        warm: '#FBF3E6',
+        red: '#B8420F',      // burnt ember, 4.6:1 on paper — AA for normal text
+        'red-d': '#8F3009',
+        'red-l': '#FF7A3D',  // the ember that works on a dark ground
+        oxblood: '#2B140C',  // cacao
+        char: '#120A07',
+        smoke: '#6B5A4B',    // 5.5:1 on paper — AA
+        'smoke-d': '#CDB9A3',
+        ember: '#FF6A2B',
+        gold: '#E9B44C',     // foil on the chocolate wrapper
+        kraft: '#C89B64',
       },
       fontFamily: {
-        display: ["'Bodoni Moda'", 'Didot', "'Bodoni MT'", 'Georgia', 'serif'],
-        ui: ["'Montserrat'", 'ui-sans-serif', 'system-ui', '-apple-system', "'Segoe UI'", 'sans-serif'],
+        display: ["'Fraunces'", 'Georgia', 'serif'],
+        ui: ["'Archivo'", 'ui-sans-serif', 'system-ui', '-apple-system', "'Segoe UI'", 'sans-serif'],
+        mono: ["'JetBrains Mono'", 'ui-monospace', 'monospace'],
       },
       fontSize: {
         // Each size is capped by a width term AND a height term, so a short

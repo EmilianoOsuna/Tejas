@@ -11,6 +11,12 @@
 
   html { -webkit-text-size-adjust: 100%; }
 
+  /* Paper grain: one static tile over everything, cheap and unmistakably not a template. */
+  body::after {
+    content: ''; position: fixed; inset: 0; z-index: 400; pointer-events: none; opacity: .07;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .1 0 0 0 0 .05 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
   body {
     margin: 0;
     background: theme('colors.paper');
@@ -24,7 +30,8 @@
 
   h1, h2, h3 {
     font-family: theme('fontFamily.display');
-    font-weight: 400;
+    font-weight: 380;
+    font-variation-settings: 'SOFT' 100, 'WONK' 1;
     text-transform: lowercase;
     margin: 0;
   }
@@ -427,7 +434,7 @@
   .foot-band {
     background: theme('colors.oxblood');
     background-image: radial-gradient(80% 170% at 12% 50%, rgb(255 255 255 / .06), transparent 62%),
-                      radial-gradient(60% 140% at 92% 40%, rgb(177 26 10 / .35), transparent 70%);
+                      radial-gradient(60% 140% at 92% 40%, rgb(184 66 15 / .35), transparent 70%);
     color: #fefefe;
   }
   .foot-big { font-family: theme('fontFamily.display'); font-size: 48px; line-height: 1.2; text-transform: lowercase; color: inherit; text-decoration: none; display: block; }
@@ -526,7 +533,7 @@
 .intro {
   position: fixed; inset: 0; z-index: 400;
   display: none; place-items: center;
-  background: #fefefe; color: #000;
+  background: theme('colors.char'); color: theme('colors.kraft');
   pointer-events: none;
 }
 .intro__f {
@@ -570,3 +577,96 @@ html.intro-on .hero__copy { animation: heroRise 1s ease 2s both; }
     scroll-behavior: auto !important;
   }
 }
+
+
+/* ==========================================================================
+   Tejas, not a template: shader hero, pit clock, embers, marquee, the ticket
+   cut, and "two fires, one roof".
+   ========================================================================== */
+
+.smoke { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1.2s ease; }
+.smoke.is-live { opacity: 1; }
+
+.embers { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 390; pointer-events: none; }
+
+/* pit clock */
+.pit {
+  position: fixed; left: 14px; bottom: 14px; z-index: 40; pointer-events: none;
+  padding: 8px 12px 9px; min-width: 150px;
+  background: rgb(18 10 7 / .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgb(251 243 230 / .16); border-radius: 10px;
+  color: theme('colors.warm');
+  font-family: theme('fontFamily.mono'); font-size: 11px; line-height: 1.4; letter-spacing: .04em;
+}
+.pit__row { display: flex; align-items: baseline; gap: 6px; text-transform: uppercase; color: rgb(251 243 230 / .55); }
+.pit__row b { font-weight: 500; color: theme('colors.ember'); font-size: 13px; }
+.pit__sep { flex: 1; }
+.pit__bar { height: 2px; margin: 6px 0 5px; background: rgb(251 243 230 / .16); overflow: hidden; }
+.pit__bar i { display: block; height: 100%; background: theme('colors.ember'); transform-origin: left; transform: scaleX(0); }
+.pit__note { color: theme('colors.warm'); text-transform: lowercase; }
+@media (max-width: 640px) { .pit { left: 8px; bottom: 8px; font-size: 10px; min-width: 0; padding: 6px 9px 7px; } .pit__note { display: none; } }
+
+/* marquee */
+.marq { overflow: hidden; background: theme('colors.char'); color: theme('colors.kraft'); border-block: 1px solid rgb(200 155 100 / .25); }
+.marq__track { display: flex; width: max-content; animation: marq 46s linear infinite; }
+.marq__set { display: flex; list-style: none; margin: 0; padding: 0; flex-shrink: 0; }
+.marq__set li {
+  display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); padding-right: clamp(18px, 3vw, 44px);
+  font-family: theme('fontFamily.display'); font-variation-settings: 'SOFT' 100, 'WONK' 1;
+  font-size: clamp(22px, 3.2vw, 40px); line-height: 2; font-style: normal; text-transform: lowercase; white-space: nowrap;
+}
+.marq__set i { width: 9px; height: 9px; background: theme('colors.ember'); transform: rotate(45deg); flex-shrink: 0; }
+@keyframes marq { to { transform: translateX(-50%); } }
+
+/* the ticket cut: a punched notch on both sides, like a butcher's ticket / a bar wrapper */
+.ticket {
+  aspect-ratio: 4 / 5; border-radius: 6px;
+  -webkit-mask: radial-gradient(circle 15px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 15px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 15px at 0 50%, #0000 97%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 15px at 100% 50%, #0000 97%, #000) right / 51% 100% no-repeat;
+}
+
+/* two fires, one roof — a plain stack by default */
+.craft { background: theme('colors.oxblood'); color: theme('colors.warm'); padding: clamp(4rem, 9vw, 8rem) 0; }
+.craft__stage { max-width: 1440px; margin-inline: auto; padding-inline: 30px; }
+@media (max-width: 650px) { .craft__stage { padding-inline: 16px; } }
+.craft__head { text-align: center; margin-bottom: clamp(2rem, 5vw, 4rem); }
+.craft__head .headline { max-width: 14ch; margin: 8px auto 0; }
+.craft__rail { display: grid; gap: clamp(3rem, 7vw, 6rem); }
+.craft__step { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: clamp(16px, 4vw, 64px); }
+.craft__n {
+  font-family: theme('fontFamily.display'); font-size: clamp(90px, 15vw, 240px); line-height: .8;
+  color: transparent; -webkit-text-stroke: 1px theme('colors.kraft'); font-variation-settings: 'SOFT' 100, 'WONK' 1;
+}
+.craft__side { display: grid; gap: 18px; align-items: center; }
+.craft__side--smoke { grid-column: 1; grid-row: 1; justify-items: end; text-align: right; }
+.craft__n { grid-column: 2; grid-row: 1; }
+.craft__side--cacao { grid-column: 3; grid-row: 1; justify-items: start; text-align: left; }
+.craft__side .plate { width: min(100%, 360px); }
+.craft__k { font-family: theme('fontFamily.mono'); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: theme('colors.ember'); }
+.craft__side h3 { font-size: clamp(26px, 3.2vw, 44px); line-height: 1.15; margin: 4px 0 8px; }
+.craft__t { max-width: 30ch; color: rgb(251 243 230 / .72); font-size: 15px; line-height: 1.6; }
+.craft__side--smoke .craft__t { margin-left: auto; }
+.craft__prog { display: none; }
+@media (max-width: 767px) {
+  .craft__step { grid-template-columns: 1fr; gap: 14px; }
+  .craft__n { grid-column: 1; grid-row: 1; font-size: 72px; }
+  .craft__side--smoke, .craft__side--cacao { grid-column: 1; grid-row: auto; grid-template-columns: 38% 1fr; justify-items: start; text-align: left; gap: 14px; }
+  .craft__side--smoke .craft__t { margin-left: 0; }
+  .craft__side .plate { width: 100%; }
+}
+
+/* pinned: one step at a time (motion.js adds .is-pinned) */
+.craft.is-pinned { padding: 0; }
+.craft.is-pinned .craft__stage { height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding-top: clamp(76px, 11svh, 120px); padding-bottom: 76px; overflow: hidden; }
+.craft.is-pinned .craft__head { margin-bottom: 0; }
+.craft.is-pinned .craft__head .headline { font-size: clamp(26px, 4.6svh, 48px); max-width: none; line-height: 1.2; }
+.craft.is-pinned .craft__rail { position: relative; display: block; }
+.craft.is-pinned .craft__step { position: absolute; inset: 0; align-content: center; }
+.craft.is-pinned .craft__side .plate { width: min(100%, 38svh); }
+.craft.is-pinned .craft__prog { display: block; height: 2px; background: rgb(251 243 230 / .16); }
+.craft.is-pinned .craft__prog i { display: block; height: 100%; background: theme('colors.ember'); transform-origin: left; transform: scaleX(.2); }
+@media (max-width: 767px) { .craft.is-pinned .craft__side .plate { width: 100%; } .craft.is-pinned .craft__t { font-size: 14px; } }
+
+@media (prefers-reduced-motion: reduce) { .marq__track { animation: none; } }

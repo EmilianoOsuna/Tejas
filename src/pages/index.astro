@@ -2,6 +2,8 @@
 import Base from '../layouts/Base.astro';
 import Header from '../components/Header.astro';
 import Hero from '../components/sections/Hero.astro';
+import Marquee from '../components/sections/Marquee.astro';
+import Craft from '../components/sections/Craft.astro';
 import Statement from '../components/sections/Statement.astro';
 import Slider from '../components/sections/Slider.astro';
 import EatSip from '../components/sections/EatSip.astro';
@@ -14,10 +16,12 @@ import Footer from '../components/Footer.astro';
 
   <main id="main">
     <Hero />
+    <Marquee />
     <div class="pb-[50px]">
       <Statement />
       <Slider />
     </div>
+    <Craft />
     <EatSip />
     <Gallery />
   </main>
