@@ -243,8 +243,8 @@
     transition: opacity .3s, visibility .3s;
   }
   .bowl .swiper-slide-active .bowl__cap { opacity: 1; visibility: visible; }
-  @media (max-width: 1024px) { .bowl__cap { bottom: auto; top: 100%; margin-top: 20px; } }
-  @media (max-width: 1024px) { .bowl__spacer { height: 200px; } }
+  @media (max-width: 1024px) { .bowl__cap { bottom: auto; top: 100%; margin-top: 20px; line-height: 1.2; } }
+  @media (max-width: 1024px) { .bowl .bowl__spacer { height: 190px; } }
 
   /* Controls sit inside the rail's box; the spacer under the slides stands in
      for the space the percentages were measured against. */
@@ -580,7 +580,7 @@ html.intro-on .hero__copy { animation: heroRise 1s ease 2s both; }
 
 
 /* ==========================================================================
-   Tejas, not a template: shader hero, pit clock, embers, marquee, the ticket
+   Tejas, not a template: shader hero, embers, marquee, the ticket
    cut, and "two fires, one roof".
    ========================================================================== */
 
@@ -588,23 +588,6 @@ html.intro-on .hero__copy { animation: heroRise 1s ease 2s both; }
 .smoke.is-live { opacity: 1; }
 
 .embers { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 390; pointer-events: none; }
-
-/* pit clock */
-.pit {
-  position: fixed; left: 14px; bottom: 14px; z-index: 40; pointer-events: none;
-  padding: 8px 12px 9px; min-width: 150px;
-  background: rgb(18 10 7 / .78); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgb(251 243 230 / .16); border-radius: 10px;
-  color: theme('colors.warm');
-  font-family: theme('fontFamily.mono'); font-size: 11px; line-height: 1.4; letter-spacing: .04em;
-}
-.pit__row { display: flex; align-items: baseline; gap: 6px; text-transform: uppercase; color: rgb(251 243 230 / .55); }
-.pit__row b { font-weight: 500; color: theme('colors.ember'); font-size: 13px; }
-.pit__sep { flex: 1; }
-.pit__bar { height: 2px; margin: 6px 0 5px; background: rgb(251 243 230 / .16); overflow: hidden; }
-.pit__bar i { display: block; height: 100%; background: theme('colors.ember'); transform-origin: left; transform: scaleX(0); }
-.pit__note { color: theme('colors.warm'); text-transform: lowercase; }
-@media (max-width: 640px) { .pit { left: 8px; bottom: 8px; font-size: 10px; min-width: 0; padding: 6px 9px 7px; } .pit__note { display: none; } }
 
 /* marquee */
 .marq { overflow: hidden; background: theme('colors.char'); color: theme('colors.kraft'); border-block: 1px solid rgb(200 155 100 / .25); }
@@ -659,7 +642,7 @@ html.intro-on .hero__copy { animation: heroRise 1s ease 2s both; }
 
 /* pinned: one step at a time (motion.js adds .is-pinned) */
 .craft.is-pinned { padding: 0; }
-.craft.is-pinned .craft__stage { height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding-top: clamp(76px, 11svh, 120px); padding-bottom: 76px; overflow: hidden; }
+.craft.is-pinned .craft__stage { height: 100svh; display: grid; grid-template-rows: auto 1fr auto; padding-top: clamp(76px, 11svh, 120px); padding-bottom: 28px; overflow: hidden; }
 .craft.is-pinned .craft__head { margin-bottom: 0; }
 .craft.is-pinned .craft__head .headline { font-size: clamp(26px, 4.6svh, 48px); max-width: none; line-height: 1.2; }
 .craft.is-pinned .craft__rail { position: relative; display: block; }

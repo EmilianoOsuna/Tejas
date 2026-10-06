@@ -1,42 +1,7 @@
 /**
- * Two small pieces of Tejas that live above the page:
- *  - the pit clock: scrolling is cooking. Hours and the brisket's internal
- *    temperature follow the scroll, stall included (it always stalls).
- *  - ember cursor: sparks lift off the pointer.
+ * Ember cursor: sparks lift off the pointer.
  */
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ---- pit clock ----------------------------------------------------------- */
-const pit = document.querySelector('[data-pit]');
-if (pit) {
-  const hr = pit.querySelector('[data-pit-hr]');
-  const temp = pit.querySelector('[data-pit-temp]');
-  const bar = pit.querySelector('[data-pit-bar]');
-  const note = pit.querySelector('[data-pit-note]');
-  const lerp = (a, b, t) => a + (b - a) * t;
-  // 38°F raw → 150°F at the stall → a long plateau → 203°F probe-tender.
-  const internal = (p) => (p < 0.45 ? lerp(38, 150, p / 0.45) : p < 0.65 ? lerp(150, 165, (p - 0.45) / 0.2) : lerp(165, 203, (p - 0.65) / 0.35));
-  const say = (p) => (p < 0.04 ? 'the fire is lit' : p < 0.45 ? 'bark is forming' : p < 0.65 ? 'the stall. be patient.' : p < 0.9 ? 'wrapped in paper' : p < 0.99 ? 'probe tender' : 'rest. then slice.');
-  let shown = 0, goal = 0, raf = 0;
-
-  const draw = () => {
-    raf = 0;
-    shown += (goal - shown) * 0.12;
-    hr.textContent = String(Math.round(shown * 12)).padStart(2, '0');
-    temp.textContent = `${Math.round(internal(shown))}°F`;
-    bar.style.transform = `scaleX(${shown})`;
-    note.textContent = say(shown);
-    if (Math.abs(goal - shown) > 0.001) raf = requestAnimationFrame(draw);
-  };
-  const read = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    goal = max > 0 ? Math.min(1, Math.max(0, scrollY / max)) : 0;
-    if (reduced) { shown = goal; draw(); } else if (!raf) raf = requestAnimationFrame(draw);
-  };
-  addEventListener('scroll', read, { passive: true });
-  addEventListener('resize', read);
-  read();
-}
 
 /* ---- ember cursor --------------------------------------------------------- */
 const cv = document.querySelector('[data-embers]');
