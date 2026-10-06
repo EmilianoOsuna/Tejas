@@ -81,8 +81,8 @@ export const hero = {
   media: {
     // Replace with the delivered assets (tasks 7.3–7.5). Until then the hero
     // renders a labelled placeholder rather than a broken <video>.
-    video: null,
-    poster: null,
+    video: '/media/hero.mp4',
+    poster: '/media/hero-poster.jpg',
     slug: 'The pit at first light · 12s silent loop · 1920×1080 · poster below 768px',
   },
 };
@@ -104,7 +104,7 @@ export const eatSip = [
     word: 'smoke',
     key: 'menu',
     tint: '#e6dacd',
-    base: { slug: 'Brisket bark sliced, steam visible · 12s silent loop', video: true, strength: -5, scale: 1.5, max: 120 },
+    base: { slug: 'Brisket bark sliced, steam visible · 12s silent loop', src: '/media/eat-smoke-poster', clip: '/media/eat-smoke.mp4', alt: '', strength: -5, scale: 1.5, max: 120 },
     floats: [],
   },
   {
@@ -112,7 +112,7 @@ export const eatSip = [
     word: 'cacao',
     key: 'shop',
     tint: '#ecd5c5',
-    base: { slug: 'Cacao nibs on the winnower, overhead, raking light', strength: -1, scale: 1.4, max: 100 },
+    base: { slug: 'Cacao nibs on the winnower, overhead, raking light', src: '/media/e-cacao', alt: '', strength: -1, scale: 1.4, max: 100 },
     floats: [
       // { src: '/media/cacao-pod.png', alt: '', strength: -7, scale: 1, className: 'eat-float--tr' },
     ],

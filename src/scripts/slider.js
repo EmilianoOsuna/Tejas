@@ -24,7 +24,7 @@ if (root) {
     centeredSlides: true,
     spaceBetween: 110,
     speed: 1000,
-    breakpoints: { 1920: { spaceBetween: 150 }, 2500: { spaceBetween: 200 } },
+    breakpoints: { 0: { spaceBetween: 20 }, 641: { spaceBetween: 110 }, 1920: { spaceBetween: 150 }, 2500: { spaceBetween: 200 } },
     // Reduced motion never autoplays. Otherwise: hovering pauses it, and using
     // the arrows or dragging stops it for good until the pause button restarts it.
     autoplay: reduced ? false : { delay: 2000, pauseOnMouseEnter: true },

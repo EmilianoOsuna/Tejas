@@ -12,6 +12,7 @@ const {
   slug = '',
   kind = 'photo',
   src = null,
+  clip = null,
   alt = '',
   sizes = '(min-width: 1024px) 40vw, 90vw',
   video = false,
@@ -36,9 +37,10 @@ const shape = MASKS[mask] ?? MASKS.arch;
 ---
 
 <div class={`plate ${shape} ${cls}`} {...rest}>
-  {src ? (
+  {src && clip ? (
+    <video class="plate__img" poster={`${src}.jpg`} src={clip} muted loop playsinline autoplay preload="metadata" aria-hidden="true"></video>
+  ) : src ? (
     <picture>
-      <source srcset={`${src}.avif`} type="image/avif" sizes={sizes} />
       <source srcset={`${src}.webp`} type="image/webp" sizes={sizes} />
       <img
         class="plate__img"

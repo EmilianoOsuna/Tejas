@@ -20,6 +20,8 @@ import Plate from '../Plate.astro';
             <Plate
               mask="none"
               slug={b.base.slug}
+              src={b.base.src}
+              clip={b.base.clip}
               kind={b.base.video ? 'video' : 'photo'}
               tone={i === 0 ? 2 : 4}
               data-layer

@@ -22,7 +22,7 @@ const total = String(dishes.length).padStart(2, '0');
       <div class="swiper-wrapper">
         {dishes.map((d, i) => (
           <div class="swiper-slide">
-            <Plate mask="circle" slug={d.photo.slug} tone={i} class="w-full" />
+            <Plate mask="circle" slug={d.photo.slug} src={d.photo.src} alt={d.photo.alt} tone={i} class="w-full" />
             <h2 class="bowl__cap headline" data-wipe>{d.name}</h2>
           </div>
         ))}

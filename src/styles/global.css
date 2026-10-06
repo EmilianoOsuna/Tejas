@@ -215,6 +215,7 @@
   }
   .bowl__wrap { position: relative; z-index: 20; height: 100%; padding-top: 135px; }
   @media (max-width: 1024px) { .bowl__wrap { padding-top: 170px; padding-bottom: 50px; } }
+  @media (max-width: 640px) { .bowl { height: auto; } .bowl__wrap { padding-top: 110px; } }
 
   /* Slides crop off both edges of the page. Clip on X only: a rail that can
      overflow sideways widens the layout viewport on phones, and the caption
@@ -225,6 +226,7 @@
   @media (min-width: 1920px) { .bowl .swiper-slide { width: calc(800px + 5vw); } }
   @media (min-width: 2500px) { .bowl .swiper-slide { width: calc(950px + 5vw); } }
   @media (max-width: 1190px) { .bowl .swiper-slide { width: min(100%, 600px); } }
+  @media (max-width: 640px) { .bowl .swiper-slide { width: 78%; } }
 
   .bowl__cap {
     position: absolute; left: 0; bottom: -160px;
@@ -234,7 +236,8 @@
     transition: opacity .3s, visibility .3s;
   }
   .bowl .swiper-slide-active .bowl__cap { opacity: 1; visibility: visible; }
-  @media (max-width: 1024px) { .bowl__cap { bottom: -70px; } }
+  @media (max-width: 1024px) { .bowl__cap { bottom: auto; top: 100%; margin-top: 20px; } }
+  @media (max-width: 1024px) { .bowl__spacer { height: 200px; } }
 
   /* Controls sit inside the rail's box; the spacer under the slides stands in
      for the space the percentages were measured against. */
