@@ -1,0 +1,40 @@
+---
+/**
+ * Two words, one per half. Hover (or focus) one: the band takes its tint, the
+ * word turns white and an arch of photography follows the cursor, its contents
+ * dragging a beat behind (motion.js). On touch and below 1025px the arches are
+ * simply shown under their words.
+ */
+import { site, eatSip } from '../../content/site.js';
+import Plate from '../Plate.astro';
+---
+
+<section id="about" class="eat-sip" data-eatsip>
+  <div class="eat-sip__row">
+    {eatSip.map((b, i) => (
+      <a class="eat-sip__box" href={site.links[b.key]} data-tint={b.tint}>
+        <span class="eat-sip__word">{b.word}</span>
+
+        <div class="eat-sip__arch" aria-hidden="true" data-arch>
+          <div class="eat-sip__clip">
+            <Plate
+              mask="none"
+              slug={b.base.slug}
+              kind={b.base.video ? 'video' : 'photo'}
+              tone={i === 0 ? 2 : 4}
+              data-layer
+              data-strength={b.base.strength}
+              data-zoom={b.base.scale}
+              data-max={b.base.max}
+            />
+          </div>
+          {b.floats.filter((f) => f.src).map((f) => (
+            <img class={`eat-float ${f.className ?? ''}`} src={f.src} alt={f.alt ?? ''} data-layer data-strength={f.strength} data-zoom={f.scale ?? 1} data-max="100" />
+          ))}
+          <i class="eat-orn" style="top:60%;left:-6px"></i>
+          <i class="eat-orn" style="top:40%;right:-6px"></i>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

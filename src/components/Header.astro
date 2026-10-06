@@ -1,0 +1,54 @@
+---
+import { site } from '../content/site.js';
+const { nav, links, name, tagline, address, phone, social } = site;
+const panelLinks = [...nav.left, ...nav.right, { label: 'Order now', key: 'order' }];
+---
+
+{/* Absolute, not fixed: the header belongs to the first screen and scrolls away
+    with it. A gradient from black keeps the white nav legible over any photo. */}
+<header class="hdr absolute inset-x-0 top-0 z-40 text-warm">
+  <div class="base-container">
+    <nav class="relative flex items-center py-[30px]" aria-label="Primary">
+      <ul class="hidden md:flex flex-1 gap-[50px] list-none m-0 p-0">
+        {nav.left.map((i) => <li><a class="nav-link" href={links[i.key]}>{i.label}</a></li>)}
+      </ul>
+
+      <a class="mx-auto md:mx-0 flex flex-col items-center justify-center w-[112px] h-[76px] text-center text-inherit no-underline" href="#main" aria-label={`${name} ${tagline} — top of page`}>
+        <span class="font-display text-[42px] leading-none lowercase">{name.toLowerCase()}</span>
+        <span class="font-ui text-[8px] font-medium tracking-[.3em] uppercase mt-[7px] whitespace-nowrap">{tagline}</span>
+      </a>
+
+      <div class="hidden md:flex flex-1 justify-end gap-[50px]">
+        <ul class="flex gap-[50px] list-none m-0 p-0">
+          {nav.right.map((i) => <li><a class="nav-link" href={links[i.key]}>{i.label}</a></li>)}
+        </ul>
+        <ul class="flex list-none m-0 p-0">
+          <li><a class="nav-link" href={links.order}>Order now</a></li>
+        </ul>
+      </div>
+
+      <button id="burger" class="burger md:hidden" type="button" aria-expanded="false" aria-controls="panel" aria-label="Menu">
+        <span></span><span></span>
+      </button>
+    </nav>
+  </div>
+
+  {/* The outer box stays inside the viewport and clips; only the inner sheet
+      slides. A translated fixed box on its own widens the page on phones. */}
+  <div id="panel" class="panel" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true" inert>
+    <div class="panel__in">
+      <ul class="list-none m-0 p-0">
+        {panelLinks.map((i) => <li><a class="panel__link" href={links[i.key]}>{i.label.toLowerCase()}</a></li>)}
+      </ul>
+      <div class="w-[100px] h-px bg-ink mt-[10px] mb-[50px]"></div>
+      <address class="not-italic font-ui text-[14px] leading-[30px]">
+        <p>{address.street}</p>
+        <p>{address.city}, {address.region} {address.postal}</p>
+      </address>
+      <a class="font-display text-[33px] leading-[70px] my-[40px] block" href={`tel:${phone.href}`}>{phone.display}</a>
+      <ul class="flex gap-6 list-none m-0 p-0">
+        {social.map((s) => <li><a class="nav-link" href={s.href}>{s.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</header>

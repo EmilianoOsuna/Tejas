@@ -1,0 +1,25 @@
+---
+/**
+ * The label is written twice and the pair slides on hover. The duplicate is
+ * aria-hidden so a screen reader announces "See menu", not "See menu See menu".
+ */
+const {
+  href = null,
+  type = 'button',
+  label = [],
+  light = false,
+  class: cls = '',
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const cn = ['circ', light ? 'circ-light' : '', cls].filter(Boolean).join(' ');
+const html = label.join('<br>');
+---
+
+<Tag class={cn} href={href} type={href ? undefined : type} {...rest}>
+  <span class="circ__slide"><span class="circ__track">
+    <span class="circ__t" set:html={html} />
+    <span class="circ__t" aria-hidden="true" set:html={html} />
+  </span></span>
+</Tag>

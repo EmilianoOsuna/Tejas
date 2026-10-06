@@ -1,0 +1,26 @@
+---
+/**
+ * The round button: a hand-drawn ring that turns slowly, and a two-word label
+ * written twice so hover can slide the copy up. The duplicate is aria-hidden so
+ * a screen reader says "See menu" once.
+ */
+const { href = null, label = [], small = false, class: cls = '', ...rest } = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const text = label.join(' ');
+---
+
+<Tag class:list={['round', small && 'round--sm', cls]} href={href} type={href ? undefined : 'button'} {...rest}>
+  <span class="round__ring" aria-hidden="true">
+    <svg viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round">
+      <path d="M51 1.8C78 2.4 98.2 23 98.2 50.5S77.5 98.4 49.5 98.2 1.6 77.6 1.8 49 23.4 2.6 51 1.8Z" stroke-width="1" />
+      <path d="M46.5 4.2C72 .9 96.5 26 95.4 52S72.8 99 47 96 3.6 69.4 4.8 45 22 7.6 49.5 3.4" stroke-width=".8" opacity=".75" />
+    </svg>
+  </span>
+  <span class="round__txt">
+    <span class="round__mover">
+      <span class="round__t">{text}</span>
+      <span class="round__t" aria-hidden="true">{text}</span>
+    </span>
+  </span>
+</Tag>

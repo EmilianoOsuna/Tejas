@@ -1,0 +1,61 @@
+---
+import { site, footerDecor } from '../content/site.js';
+const { address, phone, hours, hoursNote, social, links, name, tagline, footerNav } = site;
+---
+
+<footer id="contact" class="overflow-hidden">
+  {/* ---- logo and nav ---------------------------------------------------- */}
+  <div class="py-[80px] lg:px-[4%]">
+    <div class="base-container flex flex-col md:flex-row justify-between items-center gap-8">
+      <a class="flex flex-col items-center justify-center w-[112px] h-[76px] text-center text-ink no-underline" href="#main" aria-label={`${name} ${tagline} — top of page`}>
+        <span class="font-display text-[42px] leading-none lowercase">{name.toLowerCase()}</span>
+        <span class="font-ui text-[8px] font-medium tracking-[.3em] uppercase mt-[7px] whitespace-nowrap">{tagline}</span>
+      </a>
+      <nav aria-label="Footer">
+        <ul class="flex gap-[15px] min-[431px]:gap-[30px] md:gap-[50px] list-none m-0 p-0">
+          {footerNav.map((i) => <li><a class="nav-link" href={links[i.key]}>{i.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  {/* ---- phone and order ------------------------------------------------- */}
+  <div class="foot-band relative py-[100px] md:py-[51px] lg:px-[4%]">
+    <div class="base-container relative z-10 flex flex-col md:flex-row justify-between items-center gap-6 md:gap-0">
+      <a class="foot-big" href={`tel:${phone.href}`}>{phone.display}</a>
+      <span class="foot-big border-b-[1.5px] border-current">
+        <a class="text-inherit no-underline" href={links.order}>order to-go</a>
+      </span>
+    </div>
+    {footerDecor && (
+      <div class="absolute right-0 bottom-[60px] max-w-[838px] pointer-events-none max-md:w-full max-md:top-[-8%] max-md:bottom-auto max-md:-right-[20%]" data-slide-in aria-hidden="true">
+        <img src={footerDecor.src} alt={footerDecor.alt ?? ''} />
+      </div>
+    )}
+  </div>
+
+  {/* ---- address and hours ----------------------------------------------- */}
+  <div class="py-[80px] lg:px-[4%]">
+    <div class="base-container flex flex-col md:flex-row justify-between items-center md:items-end gap-12">
+      <div class="md:flex-[50%] md:max-w-[50%] flex flex-wrap gap-[85px] md:gap-[30px] justify-center md:justify-start text-center md:text-left mt-5 mb-[50px] md:m-0 max-lg:md:max-w-[70%]">
+        <div>
+          <h3 class="foot-title">{name.toLowerCase()}</h3>
+          <ul class="foot-list list-none m-0 p-0">
+            <li>{address.street}</li>
+            <li>{address.city}, {address.region} {address.postal}</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="foot-title">business hours</h3>
+          <ul class="foot-list list-none m-0 p-0">
+            {hours.map((h) => <li>{h.days} · {h.time}</li>)}
+            <li>{hoursNote}</li>
+          </ul>
+        </div>
+      </div>
+      <ul class="foot-list list-none m-0 p-0 flex gap-[30px]">
+        {social.map((s) => <li><a class="nav-link" href={s.href}>{s.label}</a></li>)}
+      </ul>
+    </div>
+  </div>
+</footer>

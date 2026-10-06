@@ -1,0 +1,91 @@
+---
+import '../styles/global.css';
+import { site, intro } from '../content/site.js';
+
+const { title = site.title, description = site.description } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: 'Tejas Chocolate + Barbecue',
+  servesCuisine: ['Barbecue', 'Texan'],
+  url: Astro.site?.href,
+  telephone: site.phone.display,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.address.street,
+    addressLocality: site.address.city,
+    addressRegion: site.address.region,
+    postalCode: site.address.postal,
+    addressCountry: site.address.country,
+  },
+  openingHoursSpecification: [
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Tuesday','Wednesday','Thursday','Friday','Saturday'], opens: '11:00', closes: '21:00' },
+    { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Sunday','Monday'], opens: '11:00', closes: '17:00' },
+  ],
+};
+---
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="theme-color" content="#B11A0A" />
+
+  {/* Bodoni Moda without the opsz axis resolves to its text cut — sturdier
+      hairlines than the display cut, which is what the headlines are set in. */}
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;600&family=Montserrat:wght@400;500;600&display=swap"
+  />
+
+  {/* The intro lives entirely in CSS under `html.intro-on`. This inline script
+      is the only thing that can switch it on, and the same script switches it
+      off after a hard floor — so a stalled bundle can never leave a screen
+      stuck over the page. Not run in a hidden tab (animations freeze there)
+      nor under reduced motion. */}
+  <script is:inline>
+    (function () {
+      var d = document.documentElement;
+      if (document.visibilityState !== 'visible') return;
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      d.classList.add('intro-on');
+      setTimeout(function () { d.classList.remove('intro-on'); }, 3200);
+    })();
+  </script>
+
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <div class="intro" aria-hidden="true">
+    {intro.frames.map((f, i) => (
+      <div class="intro__f" style={`--i:${i}`}>
+        {f.src ? <img src={f.src} alt="" /> : <span>{f.word}</span>}
+      </div>
+    ))}
+  </div>
+
+  <slot />
+
+  <script>
+    import '../scripts/ui.js';
+    import '../scripts/slider.js';
+    import '../scripts/motion.js';
+  </script>
+</body>
+</html>

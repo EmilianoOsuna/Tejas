@@ -1,0 +1,70 @@
+---
+/**
+ * A photograph slot. The shape comes from `mask` (or from the caller's own
+ * classes with `mask="none"`).
+ *
+ * With no `src` it renders a labelled placeholder naming the shot the photo
+ * session still owes — honest while the assets do not exist. `tone` picks one
+ * of six dark warm placeholder fills so a grid of them still reads as a collage.
+ */
+const {
+  mask = 'arch',
+  slug = '',
+  kind = 'photo',
+  src = null,
+  alt = '',
+  sizes = '(min-width: 1024px) 40vw, 90vw',
+  video = false,
+  eager = false,
+  tone = 0,
+  class: cls = '',
+  ...rest
+} = Astro.props;
+
+const MASKS = {
+  none: '',
+  circle: 'rounded-[50%] aspect-square',
+  arch: 'rounded-arch aspect-[3/4]',
+  leaf: 'rounded-leaf aspect-[4/5]',
+  petal: 'rounded-petal aspect-[4/5]',
+  dome: 'rounded-dome aspect-[4/5]',
+  'dome-r': 'rounded-dome-r aspect-[4/5]',
+  soft: 'rounded-soft aspect-[4/5]',
+  wide: 'rounded-wide aspect-[16/11]',
+};
+const shape = MASKS[mask] ?? MASKS.arch;
+---
+
+<div class={`plate ${shape} ${cls}`} {...rest}>
+  {src ? (
+    <picture>
+      <source srcset={`${src}.avif`} type="image/avif" sizes={sizes} />
+      <source srcset={`${src}.webp`} type="image/webp" sizes={sizes} />
+      <img
+        class="plate__img"
+        src={`${src}.jpg`}
+        alt={alt}
+        sizes={sizes}
+        loading={eager ? 'eager' : 'lazy'}
+        decoding={eager ? 'sync' : 'async'}
+        fetchpriority={eager ? 'high' : 'auto'}
+      />
+    </picture>
+  ) : (
+    <>
+      <div class={`plate__img ph-${tone % 6}`}></div>
+      <p class="plate__slug">
+        <b>{kind} placeholder</b>{slug}
+      </p>
+    </>
+  )}
+
+  {video && (
+    <span class="vbadge">
+      <svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true" class="w-[9px] h-[9px]">
+        <path d="M2 1 L11 6 L2 11 Z" />
+      </svg>
+      Video
+    </span>
+  )}
+</div>

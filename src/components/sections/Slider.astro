@@ -1,0 +1,62 @@
+---
+/**
+ * The plate rail: one plate centred, its neighbours cropped by the edges of the
+ * page, the dish name hung below the active one. Swiper does the work
+ * (scripts/slider.js); this is only markup.
+ */
+import { dishes } from '../../content/collections.js';
+import { bowlDecor } from '../../content/site.js';
+import Plate from '../Plate.astro';
+
+const total = String(dishes.length).padStart(2, '0');
+---
+
+<section id="menu" class="bowl" aria-roledescription="carousel" aria-label="Featured dishes">
+  {bowlDecor && (
+    <div class="absolute left-0 z-10 w-1/2 md:w-[40%] top-[-140px] md:top-[-350px] 2xl:top-[-450px] min-[2500px]:top-[-550px] pt-[100px] pointer-events-none" aria-hidden="true">
+      <img class="w-full" src={bowlDecor.src} alt={bowlDecor.alt ?? ''} />
+    </div>
+  )}
+  <div class="bowl__wrap">
+    <div class="swiper" data-bowl>
+      <div class="swiper-wrapper">
+        {dishes.map((d, i) => (
+          <div class="swiper-slide">
+            <Plate mask="circle" slug={d.photo.slug} tone={i} class="w-full" />
+            <h2 class="bowl__cap headline" data-wipe>{d.name}</h2>
+          </div>
+        ))}
+      </div>
+
+      <div class="bowl__spacer" aria-hidden="true"></div>
+
+      <div class="bowl__ctrl">
+        <div class="relative">
+          <div class="bowl__count" aria-hidden="true">
+            <span class="bowl__now" data-now>01</span>
+            <span class="bowl__all">{total}</span>
+          </div>
+          <div class="bowl__bar" aria-hidden="true"><i data-bar></i></div>
+          <button class="bowl__pause" type="button" data-pause aria-label="Pause the carousel">pause</button>
+        </div>
+
+        <div class="bowl__arrows">
+          <button class="bowl__arrow" type="button" data-prev aria-label="Previous dish">
+            <svg viewBox="0 0 33 68" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+              <path d="M29.5 4 3.5 34 29.5 64" />
+              <circle cx="30.4" cy="2.6" r="2" />
+              <circle cx="30.4" cy="65.4" r="2" />
+            </svg>
+          </button>
+          <button class="bowl__arrow" type="button" data-next aria-label="Next dish">
+            <svg viewBox="0 0 33 68" fill="none" stroke="currentColor" stroke-width="1.1" aria-hidden="true">
+              <path d="M3.5 4 29.5 34 3.5 64" />
+              <circle cx="2.6" cy="2.6" r="2" />
+              <circle cx="2.6" cy="65.4" r="2" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

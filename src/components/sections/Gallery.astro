@@ -1,0 +1,138 @@
+---
+/**
+ * Fourteen tiles in two collages, with a headline, an oval and a round button
+ * between them. Shapes and proportions are the layout's, not the photo's — a
+ * picture is cropped to whatever tile it lands in. Widths are percentages of
+ * the row so the whole thing scales as one piece.
+ */
+import { site, gallery } from '../../content/site.js';
+import { galleryTiles } from '../../content/collections.js';
+import Plate from '../Plate.astro';
+import Round from '../Round.astro';
+
+const G = 'gap-[38px] md:gap-[11px] lg:gap-[15px] xl:gap-[20px]';
+const t = galleryTiles;
+const ig = site.social[0];
+---
+
+<section id="gallery" class="gallery">
+  {/* ---- first collage ---------------------------------------------------- */}
+  <div class="base-container">
+    <div class={`flex flex-col ${G} mb-[75px]`}>
+      <div class={`flex flex-wrap items-end 2xl:justify-between ${G}`}>
+        <div class={`w-full md:max-w-[54.3%] md:flex-[54.3%] flex flex-col ${G}`}>
+          <div class={`flex flex-wrap items-end justify-center 2xl:justify-between ${G}`}>
+            <div class={`w-full md:max-w-[23.4%] md:flex-[23.4%] flex flex-col ${G}`}>
+              <div class="tile aspect-square rounded-t-[182px] rounded-br-[182px]" data-tile>
+                <Plate mask="none" slug={t[0].slug} tone={0} />
+              </div>
+              <div class="tile aspect-[174/341] rounded-[20px]" data-tile>
+                <Plate mask="none" slug={t[1].slug} tone={3} />
+              </div>
+            </div>
+            <div class="tile w-full md:max-w-[73.5%] md:flex-[73.5%] aspect-square rounded-tr-[55%]" data-tile>
+              <Plate mask="none" slug={t[2].slug} tone={5} />
+              <span class="tile__frame tile__frame--paper"><i></i><i></i></span>
+            </div>
+          </div>
+          <div class="tile w-full aspect-[744/427] rounded-3xl" data-tile>
+            <Plate mask="none" slug={t[3].slug} tone={1} />
+          </div>
+        </div>
+        <div class="tile w-full md:max-w-[44%] md:flex-[44%] aspect-[603/980] rounded-b-[648px] rounded-tl-[65rem]" data-tile>
+          <Plate mask="none" slug={t[4].slug} tone={2} />
+        </div>
+      </div>
+
+      <div class={`flex flex-wrap items-start 2xl:justify-between ${G}`}>
+        <div class="tile w-full md:max-w-[33.11%] md:flex-[33.11%] aspect-[454/686] p-[10px] border border-ink rounded-[30rem]" data-tile>
+          <Plate mask="none" slug={t[5].slug} kind="video" video tone={4} />
+        </div>
+        <div class="tile w-full md:max-w-[65.4%] md:flex-[54.4%] aspect-[894/546] rounded-3xl" data-tile>
+          <Plate mask="none" slug={t[6].slug} tone={0} />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* ---- headline, oval, round button ------------------------------------- */}
+  <div class="relative">
+    <div class="relative z-10 flex justify-center px-[15px] md:px-[30px]">
+      <h2 class="headline text-center" data-wipe>{gallery.headline}</h2>
+    </div>
+
+    <div class="relative">
+      <div class="arches" aria-hidden="true">
+        {Array.from({ length: 9 }, (_, k) => <i style={`--k:${k}`}></i>)}
+      </div>
+
+      <div class="oval">
+        <Plate mask="none" slug="Brisket on a fork, rising out of a bowl of nibs — cut-out PNG" tone={1} class="w-full h-full" data-oval-base />
+        {gallery.riser && (
+          <div class="oval__fork" data-rise="3"><img class="w-full" src={gallery.riser.src} alt={gallery.riser.alt ?? ''} /></div>
+        )}
+      </div>
+
+      <div class="floaters" aria-hidden="true" data-floaters>
+        {gallery.floaters.map((f) => (
+          <img src={f.src} alt={f.alt ?? ''} width={f.w} height={f.h} style={`${f.style};width:${f.w}px;max-width:26vw`} data-depth={f.depth} />
+        ))}
+      </div>
+
+      <div class="absolute top-1/2 left-1/2 z-40 w-full flex justify-center mt-[30px] -translate-x-1/2 translate-y-1/2">
+        <Round href={site.links.menu} label={['See', 'menu']} small />
+      </div>
+    </div>
+  </div>
+
+  {/* ---- second collage --------------------------------------------------- */}
+  <div class="base-container relative z-40 mt-[-150px] min-[2500px]:mt-[-300px]">
+    <div class={`flex flex-col ${G} mb-[75px]`}>
+      <div class={`flex flex-wrap items-end 2xl:justify-between ${G}`}>
+        <div class="tile w-full md:max-w-[44%] md:flex-[44%] aspect-[603/980] rounded-bl-[17rem]" data-tile>
+          <Plate mask="none" slug={t[7].slug} tone={3} />
+          <span class="tile__frame tile__frame--ink"><i></i><i></i></span>
+        </div>
+        <div class={`w-full md:max-w-[54.3%] md:flex-[54.3%] flex flex-col ${G}`}>
+          <div class={`flex flex-wrap items-end justify-center 2xl:justify-between ${G}`}>
+            <div class="tile w-full md:max-w-[73.5%] md:flex-[73.5%] aspect-square rounded-bl-[50%] rounded-tr-[50%]" data-tile>
+              <Plate mask="none" slug={t[8].slug} tone={2} />
+            </div>
+            <div class={`w-full md:max-w-[23.4%] md:flex-[23.4%] flex flex-col ${G}`}>
+              <div class="tile aspect-square rounded-full" data-tile>
+                <Plate mask="none" slug={t[9].slug} tone={5} />
+              </div>
+              <div class="tile aspect-[174/354] rounded-[20px]" data-tile>
+                <Plate mask="none" slug={t[10].slug} kind="video" video tone={4} />
+              </div>
+            </div>
+          </div>
+          <div class="tile w-full aspect-[744/303] rounded-3xl" data-tile>
+            <Plate mask="none" slug={t[11].slug} tone={1} />
+          </div>
+        </div>
+      </div>
+
+      <div class={`flex flex-wrap items-start 2xl:justify-between ${G}`}>
+        <div class="tile w-full md:max-w-[65.4%] md:flex-[54.4%] aspect-[894/585] rounded-tl-[17rem]" data-tile>
+          <Plate mask="none" slug={t[12].slug} tone={0} />
+        </div>
+        <div class="tile w-full md:max-w-[33.11%] md:flex-[33.11%] aspect-[454/686] rounded-3xl" data-tile>
+          <Plate mask="none" slug={t[13].slug} tone={3} />
+          <span class="tile__frame tile__frame--paper"><i></i><i></i></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-center">
+    <a class="more" href={ig.href}>
+      <svg class="w-8 h-8" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <rect x="4" y="4" width="24" height="24" rx="7" />
+        <circle cx="16" cy="16" r="5.5" />
+        <circle cx="23" cy="9" r=".9" fill="currentColor" />
+      </svg>
+      <p>{gallery.more}</p>
+    </a>
+  </div>
+</section>

@@ -1,0 +1,21 @@
+---
+import { quote } from '../../content/site.js';
+---
+
+<section class="relative bg-oxblood text-warm overflow-hidden min-h-[72dvh] grid place-items-center text-center py-[clamp(5rem,11vw,9rem)]" data-dark>
+  <div
+    class="absolute inset-x-0 -inset-y-[14%]"
+    style="background:
+      radial-gradient(60% 50% at 50% 50%, rgba(217,88,60,.26) 0%, rgba(58,13,8,0) 70%),
+      repeating-linear-gradient(94deg, rgba(251,248,244,.035) 0 1px, transparent 1px 7px);"
+    data-parallax="8"
+    aria-hidden="true"
+  ></div>
+
+  <div class="wrap">
+    <blockquote class="relative z-[3] m-0">
+      <h2 class="text-d2 max-w-[15ch] mx-auto text-warm" data-split>{quote.text}</h2>
+      <cite class="block mt-8 not-italic label label-dark">{quote.cite}</cite>
+    </blockquote>
+  </div>
+</section>

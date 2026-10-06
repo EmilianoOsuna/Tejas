@@ -1,0 +1,20 @@
+{
+  "name": "tejas-chocolate-barbecue",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/tailwind": "6.0.2",
+    "astro": "5.14.1",
+    "gsap": "3.13.0",
+    "lenis": "1.3.11",
+    "swiper": "11.2.10",
+    "tailwindcss": "3.4.17"
+  }
+}

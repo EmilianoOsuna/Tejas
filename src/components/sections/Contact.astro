@@ -1,0 +1,73 @@
+---
+import { site } from '../../content/site.js';
+import CircleButton from '../CircleButton.astro';
+const { address, phone, hours, social } = site;
+
+// Third-party endpoint keeps the output static — no server to run for three
+// fields. Swap for the real form id before launch (design.md D8).
+const ENDPOINT = 'https://formspree.io/f/REPLACE_ME';
+---
+
+<section id="contact" class="bg-paper-2 py-band">
+  <div class="wrap grid gap-14 lg:grid-cols-[5fr_7fr] lg:gap-[clamp(48px,7vw,120px)]">
+    <div>
+      <p class="label label-red">come by</p>
+      <h2 class="text-d3 mb-8" data-split>get in touch</h2>
+
+      <dl class="grid gap-7">
+        <div>
+          <dt class="label">Address</dt>
+          <dd class="m-0 text-sm font-medium leading-[1.85]">{address.street}<br />{address.city}, {address.region} {address.postal}</dd>
+        </div>
+        <div>
+          <dt class="label">Hours</dt>
+          <dd class="m-0 text-sm font-medium leading-[1.85]">
+            {hours.map((h, i) => <>{i > 0 && <br />}{h.days} · {h.time}</>)}
+          </dd>
+        </div>
+        <div>
+          <dt class="label">Phone</dt>
+          <dd class="m-0 text-sm font-medium leading-[1.85]"><a class="text-red no-underline" href={`tel:${phone.href}`}>{phone.display}</a></dd>
+        </div>
+        <div>
+          <dt class="label">Follow</dt>
+          <dd class="m-0 flex gap-[22px]">{social.map((s) => <a class="tlink" href={s.href}>{s.label}</a>)}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <form id="form" class="grid gap-6" action={ENDPOINT} method="post" novalidate>
+      <div class="grid gap-6 sm:grid-cols-2">
+        <div class="grid gap-2">
+          <label class="label" for="fn">First name</label>
+          <input id="fn" name="firstName" type="text" autocomplete="given-name"
+                 class="font-ui text-sm font-medium text-ink bg-transparent border-0 border-b border-ink/15 py-2.5 rounded-none focus:outline-none focus:border-red transition-colors" />
+        </div>
+        <div class="grid gap-2">
+          <label class="label" for="ln">Last name</label>
+          <input id="ln" name="lastName" type="text" autocomplete="family-name"
+                 class="font-ui text-sm font-medium text-ink bg-transparent border-0 border-b border-ink/15 py-2.5 rounded-none focus:outline-none focus:border-red transition-colors" />
+        </div>
+      </div>
+
+      <div class="grid gap-2">
+        <label class="label" for="em">Email</label>
+        <input id="em" name="email" type="email" autocomplete="email" aria-describedby="emErr"
+               class="font-ui text-sm font-medium text-ink bg-transparent border-0 border-b border-ink/15 py-2.5 rounded-none focus:outline-none focus:border-red transition-colors" />
+        <p class="text-[10px] font-semibold tracking-[.14em] uppercase text-red-d min-h-[1.2em]" id="emErr" role="alert"></p>
+      </div>
+
+      <div class="grid gap-2">
+        <label class="label" for="msg">Message</label>
+        <textarea id="msg" name="message" rows="3" aria-describedby="msgErr"
+                  class="font-ui text-sm font-medium text-ink bg-transparent border-0 border-b border-ink/15 py-2.5 rounded-none resize-y min-h-[92px] focus:outline-none focus:border-red transition-colors"></textarea>
+        <p class="text-[10px] font-semibold tracking-[.14em] uppercase text-red-d min-h-[1.2em]" id="msgErr" role="alert"></p>
+      </div>
+
+      <div class="flex items-center gap-7 flex-wrap">
+        <CircleButton type="submit" label={['Send']} />
+        <p class="text-[11px] font-semibold tracking-[.14em] uppercase text-red min-h-[1.4em]" id="formNote" role="status"></p>
+      </div>
+    </form>
+  </div>
+</section>
